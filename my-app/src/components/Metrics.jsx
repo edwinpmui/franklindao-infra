@@ -48,15 +48,15 @@ function Metrics() {
         <div className="Metrics">
             <h2 className="Metrics-title">Metrics</h2>
             <div className="Metric">
-                <h2>Users</h2>
+                <h2>Stat1</h2>
                 <h2>{metrics.users}</h2>
             </div>
             <div className="Metric">
-                <h2>Projects</h2>
+                <h2>Stat2</h2>
                 <h2>{metrics.projects}</h2>
             </div>
             <div className="Metric">
-                <h2>Revenue</h2>
+                <h2>Stat3</h2>
                 <h2>${metrics.revenue.toLocaleString()}</h2>
             </div>
         </div>

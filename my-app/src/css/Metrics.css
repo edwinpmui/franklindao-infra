@@ -12,8 +12,9 @@
 }
 
 .Metrics-title {
-    font-size: 2rem;
+    font-size: 4rem;
     color: #fff;
+    z-index: 1;
     /* White text color */
     margin-bottom: 20px;
     width: 100%;

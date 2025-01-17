@@ -11,7 +11,9 @@ function Nav() {
         <span className="Nav-text">Infra@FranklinDAO</span>
       </div>
       <div className="Nav-right">
-        <Link to="/login" className="Nav-link">Login</Link>
+        <Link to="/login" className="Nav-link">
+          <button className="Nav-button">Login</button>
+        </Link>
       </div>
     </nav>
   );
