@@ -1,0 +1,22 @@
+.Home {
+    overflow-y: auto; /* Enable scrolling within the Home container */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .Home::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, and Opera */
+  }
+  
+  .About {
+    background-color: white;
+    min-height: 100vh; /* Full viewport height */
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .About-header {
+    text-align: center;
+    margin-top: 50px;
+  }
