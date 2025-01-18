@@ -2,10 +2,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: transparent;
   padding: 10px 20px;
-  position: relative;
-  z-index: 1;
+  background-color: transparent;
+  color: white;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  /* Ensure the navbar stays on top */
+}
+
+.Nav-login {
+  background-color: hsla(150, 80%, 1%, 1);
+  /* Change the color for the login page */
 }
 
 .Nav-left {
@@ -19,21 +28,16 @@
 }
 
 .Nav-text {
-  color: white;
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 1.5rem;
 }
 
-.Nav-right {}
+.Nav-right {
+  display: flex;
+  align-items: center;
+}
 
 .Nav-link {
-  color: white;
   text-decoration: none;
-  font-size: 18px;
-}
-
-.Nav-link:hover {
-  text-decoration: underline;
 }
 
 .Nav-button {
@@ -45,4 +49,8 @@
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s ease;
+}
+
+.Nav-button:hover {
+  background-color: #0056b3;
 }

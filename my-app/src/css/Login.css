@@ -3,19 +3,26 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    /* Ensure it covers the full viewport height */
+    background-color: hsla(150, 80%, 1%, 1);
+    position: relative;
 }
 
-.Login-form {
-    background-color: white;
+.Login-section {
+    background-color: #333;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 300px;
+    height: 300px;
+    /* Make it a square */
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: #fff;
+    justify-content: center;
+    /* Center the content vertically */
 }
 
 .Login-field {

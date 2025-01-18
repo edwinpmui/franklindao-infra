@@ -1,0 +1,13 @@
+.Footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.Footer-absolute {
+    position: absolute;
+    bottom: 0;
+}

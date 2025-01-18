@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import '../css/Nav.css';
 import logo from '../logo.svg';
 
-function Nav() {
+function Nav({ className }) {
   return (
-    <nav className="Nav">
+    <nav className={`Nav ${className}`}>
       <div className="Nav-left">
         <img src={logo} alt="Logo" className="Nav-logo" />
         <span className="Nav-text">Infra@FranklinDAO</span>
