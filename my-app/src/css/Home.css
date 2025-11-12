@@ -3,7 +3,8 @@
   flex-direction: column;
   min-height: 100vh;
   overflow-y: auto;
-  /* Enable scrolling within the Home container */
+  /* leave room for left sidebar (narrow vertical sidebar) */
+  margin-left: 96px;
   -ms-overflow-style: none;
   /* IE and Edge */
   scrollbar-width: none;
@@ -22,10 +23,7 @@
 .About {
   background-color: white;
   min-height: 100vh;
-  /* Full viewport height */
   padding: 20px;
-  margin-top: 100vh;
-  /* Move the About section 100vh down */
   position: relative;
   z-index: 1;
 }
@@ -37,4 +35,11 @@
 
 .Footer {
   flex-shrink: 0;
+}
+
+/* On small screens, remove left margin and let nav collapse to top */
+@media (max-width: 768px) {
+  .Home {
+    margin-left: 0;
+  }
 }

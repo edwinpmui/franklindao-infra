@@ -18,7 +18,7 @@ function About() {
   ];
 
   return (
-    <div className="About">
+    <div id="about" className="About">
       <header className="About-header">
         <h1>About Us</h1>
         <p>

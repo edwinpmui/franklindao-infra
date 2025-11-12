@@ -1,3 +1,20 @@
+:root {
+  /* Approximate color palette inspired by https://union.co/work */
+  --union-dark: #07132b;    /* deep navy background */
+  --union-mid:  #0b5fa8;    /* ocean/brand blue */
+  --union-accent:#00b4d8;   /* bright cyan accent */
+  --union-pale: #e8fbff;    /* very pale blue / background */
+
+  --text-dark: #0b1b33;
+  --text-on-dark: #ffffff;
+
+  /* Legacy aliases (keeps older CSS that referenced these names working) */
+  --dark-blue: var(--union-dark);
+  --ocean-blue: var(--union-mid);
+  --soft-cyan: var(--union-accent);
+  --pale-blue: var(--union-pale);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +22,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--union-pale);
+  color: var(--text-dark);
 }
 
 code {
