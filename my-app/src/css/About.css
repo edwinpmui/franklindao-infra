@@ -60,7 +60,7 @@
 }
 
 .About-text p {
-    margin: 0;
+    margin: 24px 0 0 0; /* push the body text down, separate from the heading+logo */
     max-width: 900px;
     line-height: 1.6;
     color: rgba(255,255,255,0.92);
@@ -344,6 +344,10 @@
         --about-logo-y: 0;
         transform: translateY(var(--about-logo-y)); /* reset transform on small screens */
         width: 96px; /* slightly larger on small screens for legibility */
+    }
+    /* reduce spacing on small screens so content doesn't appear too separated */
+    .About-text p {
+        margin-top: 16px;
     }
     .Team-left, .Team-right {
         flex: 1 1 100%;
