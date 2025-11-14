@@ -6,7 +6,6 @@
   min-height: 320px;
   overflow: visible;
   background: transparent; /* background will match body */
-  border-bottom: 1px solid rgba(0,0,0,0.04);
 }
 
 .Banner-title {
@@ -47,21 +46,25 @@
 .Banner {
   /* Remove dark overlay gradient so the banner doesn't create a heavy blue overlay */
   background: transparent;
+  /* tunable nudge distance when moving the team label on scroll (negative = left) */
+  --brand-nudge: -36px;
 }
 
 .Banner-logo {
-  /* Make the logo ~3× larger than before. This sets a larger responsive clamp so the image
-     is actually bigger (not just visually scaled). */
-  /* Min 192px, scales with viewport, caps at 960px for very wide screens */
-  width: clamp(192px, 36vw, 960px);
+  /* Responsive sizing: let the logo scale with viewport but never overflow its container.
+     Using clamp() ensures it shrinks on narrow viewports and grows on wide ones. */
+  /* Example: min 160px, scales with viewport (vw), caps at 960px */
+  width: clamp(160px, 28vw, 960px);
   height: auto;
   max-width: 100%; /* keep it from overflowing its container horizontally */
   display: block;
+  object-fit: contain;
 }
 
 /* Inline slim logo next to the team text */
 .Banner-logo--inline {
-  height: 72px;        /* increased from 40px to 72px per request */
+  /* Inline (slim) logo should scale down as the viewport shrinks. */
+  height: clamp(28px, 6.5vw, 72px); /* min, preferred (vw), max */
   width: auto;
   display: inline-block;
   vertical-align: middle;
@@ -70,11 +73,27 @@
 
 /* Color blocks image placed to the left of the slim FDAO logo */
 .Banner-logo--blocks {
-  height: 120px;       /* increased so color-blocks are noticeably bigger */
+  /* Color blocks scale responsively as well. */
+  height: clamp(40px, 10vw, 120px);
   width: auto;
   display: inline-block;
   vertical-align: middle;
   margin-right: 10px;  /* a touch more spacing before the slim logo */
+}
+
+/* Transitions for scroll-hide behavior: fade and slightly lift the logos */
+.Banner-logo--inline,
+.Banner-logo--blocks {
+  transition: opacity 260ms cubic-bezier(.2,.9,.2,1), transform 260ms cubic-bezier(.2,.9,.2,1);
+  will-change: opacity, transform;
+}
+
+/* When the banner receives .banner-scrolled, hide the logos smoothly */
+.Banner.banner-scrolled .Banner-logo--inline,
+.Banner.banner-scrolled .Banner-logo--blocks {
+  opacity: 0;
+  transform: translateY(-6px) scale(.98);
+  pointer-events: none;
 }
 
 .Brand-main {
@@ -93,6 +112,24 @@
   font-weight: 500;
   font-size: 1.2rem;
   color: #111; /* slightly muted black for subtext */
+  display: inline-block; /* allow transforms */
+  transition: transform 260ms cubic-bezier(.2,.9,.2,1), opacity 260ms;
+  will-change: transform, opacity;
+}
+
+/* When scrolled, nudge the team label left so it moves into the space left by the slim logo */
+.Banner.banner-scrolled .Brand-sub {
+  transform: translateX(var(--brand-nudge));
+  /* also fade it out and make it non-interactive so it effectively disappears */
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  /* on small screens use a smaller nudge to avoid overflow */
+  .Banner {
+    --brand-nudge: -18px;
+  }
 }
 
 /* Responsive: stack logo and title on small screens */
@@ -129,17 +166,18 @@
     font-size: 1rem;
   }
   .Banner-logo {
-    width: 288px; /* ~3x the previous mobile size */
+    /* On small screens, allow the logo to be a percentage of the viewport but capped */
+    width: clamp(120px, 50vw, 288px);
     height: auto;
     max-width: 100%;
   }
 
   .Banner-logo--blocks {
-    height: 80px; /* scale down on narrow screens but still larger than before */
+    height: clamp(32px, 18vw, 80px); /* smaller caps on narrow screens */
   }
 
   .Banner-logo--inline {
-    height: 56px; /* reduce inline slim logo on mobile to avoid crowding */
+    height: clamp(24px, 12vw, 56px); /* reduce inline slim logo on mobile to avoid crowding */
   }
 }
 

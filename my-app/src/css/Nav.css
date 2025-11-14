@@ -60,6 +60,34 @@
   padding-bottom: 8px;
 }
 
+/* Large variant of the color blocks used inside the expanded panel header */
+.Nav-logo--blocks-large {
+  height: 120px;
+  width: auto;
+  display: block;
+  opacity: 0;
+  transform: translateY(-8px) scale(.96);
+  transition: opacity 360ms cubic-bezier(.2,.9,.2,1), transform 360ms cubic-bezier(.2,.9,.2,1);
+  pointer-events: none;
+}
+
+/* Reveal the large blocks when the panel opens; position them near the top */
+.Nav.open .Nav-logo--blocks-large {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* On mobile, make the large image smaller and inline with the header text */
+@media (max-width: 768px) {
+  .Nav-logo--blocks-large {
+    height: 40px;
+    margin-right: 10px;
+    opacity: 1; /* if panel opens on mobile, show it inline */
+    transform: none;
+  }
+}
+
 .Nav-panel-text {
   font-weight: 700;
   font-size: 1.05rem;
@@ -75,6 +103,30 @@
   justify-content: center;
   pointer-events: auto; /* these should be interactive even when panel is closed */
   z-index: 1100; /* sit above the sliding panel */
+}
+
+/* Collapsed-only current-section label shown centered in the nav bar.
+   Visible only when the nav is collapsed (not .open). Uses rotation so the text
+   reads horizontally while fitting inside the narrow vertical bar. */
+.Nav-current {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  transform-origin: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: inherit;
+  white-space: nowrap;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 240ms ease, transform 420ms cubic-bezier(.2,.8,.2,1);
+}
+
+/* Hide the label when the nav is expanded */
+.Nav.open .Nav-current {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(-90deg) scale(0.9);
 }
 
 .Nav-text {
@@ -115,12 +167,38 @@
   width: 100%;
   /* push the vertical brand label slightly down so it's fully visible */
   padding-top: 18px;
+  position: relative;
+  flex-direction: column; /* stack brand text and the blocks image vertically */
 }
 
 .Nav-logo {
   height: 40px;
   width: 40px;
   display: block;
+}
+
+/* color blocks image that appears under the brand label when the banner/nav is scrolled */
+.Nav-logo--blocks {
+  height: 34px;
+  width: auto;
+  display: block;
+  opacity: 0;
+  transform: translateY(-6px) rotate(-90deg);
+  transform-origin: center;
+  transition: opacity 260ms cubic-bezier(.2,.9,.2,1), transform 260ms cubic-bezier(.2,.9,.2,1);
+  pointer-events: none;
+}
+
+/* Reveal when nav mirrors banner-scrolled */
+.Nav.nav-scrolled .Nav-logo--blocks {
+  opacity: 1;
+  transform: translateY(0) rotate(-90deg);
+  pointer-events: auto;
+}
+
+/* When the blocks are visible, add a small spacing so the vertical label doesn't overlap */
+.Nav.nav-scrolled .Nav-text {
+  margin-bottom: 6px;
 }
 
 .Nav-text {
@@ -132,6 +210,27 @@
   transform: rotate(180deg); /* flip to read top-to-bottom */
   letter-spacing: 0.06em;
   color: #000;
+}
+
+/* Desktop: keep the collapsed brand label hidden until the user scrolls.
+   When `.nav-scrolled` is present the label will slide down into view. */
+@media (min-width: 769px) {
+  .Nav-text {
+    opacity: 0;
+    transform: translateY(-18px) rotate(180deg);
+    transition: opacity 320ms cubic-bezier(.2,.9,.2,1), transform 320ms cubic-bezier(.2,.9,.2,1);
+    will-change: opacity, transform;
+  }
+
+  .Nav.nav-scrolled .Nav-text {
+    opacity: 1;
+    transform: translateY(0) rotate(180deg);
+  }
+
+  /* ensure hover still reveals nav properly when expanded */
+  .Nav:hover .Nav-text {
+    color: #fff;
+  }
 }
 
 /* Hovering the entire nav switches it to dark mode (black bg, white text/icons) */
@@ -206,6 +305,14 @@
 .Nav.open .Nav-panel .Nav-text {
   /* hide the vertical brand label when the sidebar is expanded */
   display: none;
+}
+
+/* Hide the color blocks image when the nav is expanded so it doesn't appear
+   inside the open panel. This applies to both desktop and mobile states. */
+.Nav.open .Nav-logo--blocks {
+  opacity: 0 !important;
+  transform: translateY(-6px) rotate(-90deg);
+  pointer-events: none;
 }
 
 .Nav.open .Nav-panel .Nav-links {
@@ -441,5 +548,14 @@
   /* On small screens, disable the proximity zone so touches aren't intercepted */
   .Nav::before {
     pointer-events: none;
+  }
+
+  /* On small screens show the blocks inline to the left of the label */
+  .Nav-logo--blocks {
+    position: static;
+    opacity: 1;
+    transform: none; /* keep normal orientation on mobile */
+    height: 28px;
+    margin-right: 8px;
   }
 }
