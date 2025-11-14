@@ -12,14 +12,55 @@
 .About-org-inner {
     max-width: 1100px;
     margin: 0 auto;
-    text-align: center;
+    padding-left: 36px; /* add left gutter so content doesn't sit flush to section edge */
+    padding-right: 36px;
 }
-.About-org h1 {
-    margin: 0 0 12px 0;
+
+/* two-column layout inside About: logo on the left, text on the right */
+
+.About-org-grid {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.About-text {
+    flex: 1 1 auto;
+    /* align the logo with the text baseline so it sits inline with the heading */
+    align-items: baseline;
+    gap: 8px;
+    /* nudge the whole heading (text + logo) upward so it sits closer to the top of the section */
+    margin-top: -50px;
+}
+
+.About-logo-inline-right {
+    /* configure vertical offset with a variable so it's easy to tweak */
+    --about-logo-y: -5px;
+    width: 260px; /* scaled-up logo */
+    height: auto;
+    display: inline-block;
+    transform: translateY(var(--about-logo-y));
+}
+
+.About-text h1 {
+    margin: 0 0 64px 0; /* larger gap between header+logo row and following text */
     font-size: 2.25rem;
+    color: #fff;
 }
-.About-org p {
-    margin: 0 auto;
+
+/* layout the About heading and inline logo */
+.About-heading-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.About-heading-row h1 {
+    margin: 0; /* ensure no extra top/bottom margin interferes with vertical alignment */
+}
+
+.About-text p {
+    margin: 0;
     max-width: 900px;
     line-height: 1.6;
     color: rgba(255,255,255,0.92);
@@ -33,12 +74,20 @@
 }
 .Team-left {
     flex: 1 1 420px;
-    background: #000; /* match AboutOrg: full black */
-    color: #fff;
+    background: #fff; /* switch to white background */
+    color: #000;
     padding: 48px 28px;
 }
 .Team-left h2 {
     margin-top: 0;
+}
+
+/* Central heading spanning both columns */
+.Team-heading {
+    text-align: left;
+    margin: 0 0 20px 0; /* align with Team-right-inner text and add bottom spacing */
+    font-size: 2.6rem; /* larger section heading */
+    line-height: 1.05;
 }
 .Team-members {
     display: flex;
@@ -48,19 +97,22 @@
 }
 .Team-member {
     display: flex;
-    gap: 16px;
+    flex-direction: column; /* stack photo above text */
+    gap: 12px;
     align-items: center;
+    text-align: center; /* center the name/position text */
 }
 .Team-photo {
     width: 88px;
     height: 88px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid rgba(255,255,255,0.12);
+    border: 2px solid rgba(0,0,0,0.06);
 }
 .Team-member-meta {
     display: flex;
     flex-direction: column;
+    align-items: center; /* center meta content under photo */
 }
 .Team-member-name {
     margin: 0;
@@ -69,18 +121,189 @@
 .Team-position {
     margin: 2px 0 0 0;
     font-size: 0.9rem;
-    color: rgba(255,255,255,0.8);
+    color: #333;
+}
+
+/* New three-column grid for team members with director centered */
+.Team-members-grid {
+    flex: 1 1 640px;
+    display: grid;
+    grid-template-columns: 1fr 320px 1fr;
+    gap: 0px;
+    background: #fff;
+    /* add extra top padding to lower the entire members block */
+    padding: 88px 28px 48px;
+    align-items: start;
+}
+.Team-column {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.Team-column--center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Team-member--director {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    max-width: 320px;
+    /* lift the director slightly so they visually sit above flank members */
+    transform: translateY(-40px);
+}
+.Team-photo--director {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(0,0,0,0.06);
+}
+.Team-member-desc {
+    margin-top: 8px;
+    color: #444;
+    font-size: 0.95rem;
+}
+
+/* place the director in the center column when using the three-column grid */
+.Team-member--director-grid {
+    grid-column: 2 / 3;
+}
+
+/* members grid slots (explicit placement) */
+.slot-top-left { grid-column: 1; grid-row: 1; }
+.slot-top-center { grid-column: 2; grid-row: 1; }
+.slot-top-right { grid-column: 3; grid-row: 1; }
+.slot-bottom-left { grid-column: 1; grid-row: 2; }
+.slot-bottom-center { grid-column: 2; grid-row: 2; }
+.slot-bottom-right { grid-column: 3; grid-row: 2; }
+
+/* members rows container: spans the full grid and lays out items in rows */
+.Team-members-rows {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    padding-top: 18px;
+}
+
+/* Slightly lower the top-left and top-right flank members so the director visually sits higher */
+.slot-top-left .Team-member {
+    /* shift right and down a bit so Christopher sits slightly lower and more inward */
+    transform: translate(50px, 12px);
+}
+.slot-top-right .Team-member {
+    /* move the right flank inward and slightly lower so Shoi sits closer to the director */
+    transform: translate(-50px, 12px);
+}
+
+/* shift the bottom-left member (Nevan) inward toward center */
+.slot-bottom-left .Team-member {
+    transform: translateX(50px);
+}
+
+/* shift the bottom-right member (Eric) inward toward center */
+.slot-bottom-right .Team-member {
+    transform: translateX(-50px);
+}
+
+/* Appear/disappear behavior controlled by JS toggling the .appear class on .Team-members-grid
+   Default: hidden (opacity 0). When .appear is present set opacity to 1. Use transition-delay
+   to stagger so the director (center) appears first. We avoid changing transforms here to not
+   conflict with positioning offsets already in use. */
+.Team-members-grid .member-slot .Team-member {
+    opacity: 0;
+    transition: opacity 360ms ease;
+}
+.Team-members-grid.appear .member-slot .Team-member {
+    opacity: 1;
+}
+
+/* Stagger: director (slot-top-center) first */
+.Team-members-grid.appear .member-slot.slot-top-center .Team-member { transition-delay: 0s; }
+.Team-members-grid.appear .member-slot.slot-top-left .Team-member { transition-delay: 0.08s; }
+.Team-members-grid.appear .member-slot.slot-top-right .Team-member { transition-delay: 0.08s; }
+.Team-members-grid.appear .member-slot.slot-bottom-left .Team-member { transition-delay: 0.16s; }
+.Team-members-grid.appear .member-slot.slot-bottom-center .Team-member { transition-delay: 0.20s; }
+.Team-members-grid.appear .member-slot.slot-bottom-right .Team-member { transition-delay: 0.24s; }
+
+/* Respect reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    .Team-members-grid .member-slot .Team-member,
+    .Team-members-grid.appear .member-slot .Team-member {
+        transition: none;
+        opacity: 1;
+    }
+}
+
+.Team-member--row {
+    /* fixed card width so items form rows; adjusts responsively */
+    width: 240px;
+}
+
+/* Director row (centered) */
+.Team-director-row {
+    display: flex;
+    justify-content: center;
+    padding: 28px 20px 8px;
+    background: #fff;
+}
+
+/* Two-column members grid placed under the director */
+.Team-members-grid-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding: 24px 28px 48px;
+    background: #fff;
+}
+.Team-column {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Slightly larger director photo already defined; center text */
+.Team-member--director {
+    text-align: center;
+    align-items: center;
+}
+
+@media (max-width: 900px) {
+    /* stack the two-column grid to a single column */
+    .Team-members-grid-two {
+        grid-template-columns: 1fr;
+        padding: 16px 20px 28px;
+    }
+    .Team-director-row {
+        padding: 18px 12px 6px;
+    }
+    /* reset director transform on small screens so stacking looks natural */
+    .Team-column--center .Team-member--director {
+        transform: none;
+    }
 }
 
 .Team-right {
     flex: 1 1 420px;
     background: #fff;
     color: #000;
-    padding: 48px 32px;
+    /* increase left padding so the column content moves further to the right
+       and add extra top padding to lower the heading/text vertically */
+    padding: 88px 32px 48px 48px;
 }
 .Team-right-inner {
     max-width: 760px;
-    margin: 0 auto;
+    /* stop centering so content hugs the left side of the section */
+    margin: 0;
+    /* reduce left padding so heading/text sit closer to the section edge */
+    padding-left: 36px;
+    padding-right: 12px;
+    text-align: left; /* ensure text is left-aligned */
 }
 .Team-right h3 {
     margin-top: 0;
@@ -88,12 +311,39 @@
 .Team-right p {
     line-height: 1.6;
     color: #111;
+    font-size: 1.125rem; /* slightly larger body text for emphasis */
+}
+
+/* Responsive: scale down heading/text on small screens */
+@media (max-width: 600px) {
+    .Team-heading {
+        font-size: 1.6rem;
+    }
+    .Team-right p {
+        font-size: 1rem;
+    }
 }
 
 /* Responsive: stack on small screens */
 @media (max-width: 900px) {
     .Team-section {
         flex-direction: column;
+    }
+    .About-org-grid {
+        flex-direction: column;
+        text-align: center;
+    }
+    .About-logo {
+        margin-bottom: 12px;
+    }
+    .About-logo {
+        margin-left: 0; /* reset when stacked */
+    }
+    .About-logo-inline-right {
+        /* mobile override: remove offset and set a smaller width */
+        --about-logo-y: 0;
+        transform: translateY(var(--about-logo-y)); /* reset transform on small screens */
+        width: 96px; /* slightly larger on small screens for legibility */
     }
     .Team-left, .Team-right {
         flex: 1 1 100%;
@@ -105,5 +355,36 @@
     }
     .Team-member {
         width: calc(50% - 12px);
+    }
+    /* stack three-column grid into a single column on small screens */
+    .Team-members-grid {
+        display: block;
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+        background: #fff;
+    }
+    .Team-column {
+        width: 100%;
+        margin-bottom: 18px;
+    }
+    .Team-column--center .Team-photo--director {
+        width: 120px;
+        height: 120px;
+    }
+
+    /* undo the desktop translate on small screens so cards stack naturally */
+    .slot-top-left .Team-member,
+    .slot-top-right .Team-member {
+        transform: none;
+    }
+    /* reset director shift on small screens */
+    .Team-member--director {
+        transform: none;
+    }
+
+    /* reset horizontal shift for bottom-left on small screens */
+    .slot-bottom-left .Team-member {
+        transform: none;
     }
 }
