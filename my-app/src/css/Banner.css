@@ -4,8 +4,40 @@
   /* make the banner a normal top section instead of full viewport */
   height: auto;
   min-height: 320px;
-  overflow: visible;
-  background: transparent; /* background will match body */
+  /* hide overflow so background video can be zoomed without showing edges */
+  overflow: hidden;
+  /* dark fallback while video loads or in case of letterboxing */
+  background: #000;
+}
+
+/* Make the PageSection that contains the hero banner full-bleed so the video
+   can reach the very edges of the viewport without surrounding white margins. */
+.PageSection--hero {
+  margin: 0; /* remove outer margins */
+  padding: 0; /* remove internal padding so banner can occupy the full area */
+  background: transparent; /* let the banner control its background */
+}
+
+/* Compensate for the .SiteContent top margin so the hero sits flush with the page top. 
+   Index.css sets .SiteContent { margin: 24px 0 }, so negate that here. */
+.PageSection--hero {
+  margin-top: -24px;
+}
+
+/* Background video that covers the banner area */
+.Banner-bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* oversize the video so it always covers the container */
+  height: 335%;
+  width: auto;
+  transform: translate(-50%, -50%) scale(1.06);
+  object-fit: cover;
+  object-position: center 30%; /* bias visible area downward */
+  z-index: 0; /* behind banner content */
+  pointer-events: none;
+  display: block;
 }
 
 .Banner-title {
@@ -21,6 +53,41 @@
   align-items: center;
   gap: 8px;
   white-space: nowrap; /* keep the label on a single line on wider viewports */
+}
+
+/* Glass-style rounded pill behind the inline logo + team label */
+.Banner-title::before {
+  content: "";
+  position: absolute;
+  /* extend slightly around the title to form a pill */
+  top: -8px;
+  bottom: -8px;
+  left: -20px;
+  right: -20px;
+  border-radius: 999px;
+  /* frostier glass: slightly stronger veil, heavier blur, subtle contrast boost and deeper diffuse shadow */
+  background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.08));
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 14px 40px rgba(2,6,23,0.08), inset 0 1px 0 rgba(255,255,255,0.03);
+  /* heavier blur + saturation/contrast to enhance the frosted effect */
+  backdrop-filter: blur(20px) saturate(150%) contrast(105%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%) contrast(105%);
+  z-index: 4; /* sit behind the title content (title has z-index:5) */
+  pointer-events: none;
+  transition: opacity 260ms cubic-bezier(.2,.9,.2,1), transform 260ms cubic-bezier(.2,.9,.2,1);
+}
+
+/* Ensure the inline images and subtext render above the glass pill */
+.Banner-title > img,
+.Banner-title .Brand-sub {
+  position: relative;
+  z-index: 6;
+}
+
+/* Hide the glass pill when the banner is scrolled */
+.Banner.banner-scrolled .Banner-title::before {
+  opacity: 0;
+  transform: translateY(-6px) scale(.995);
 }
 
 .Banner-inner {
@@ -178,6 +245,11 @@
 
   .Banner-logo--inline {
     height: clamp(24px, 12vw, 56px); /* reduce inline slim logo on mobile to avoid crowding */
+  }
+
+  /* hide background video on small screens for performance and layout stability */
+  .Banner-bg-video {
+    display: none;
   }
 }
 

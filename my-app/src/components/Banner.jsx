@@ -60,6 +60,11 @@ function Banner() {
   // Static hero with scroll-driven class to hide logos
   return (
     <div id="home" ref={bannerRef} className={`Banner ${scrolled ? 'banner-scrolled' : ''}`}>
+      {/* background video: plays silently and loops */}
+      <video className="Banner-bg-video" autoPlay muted loop playsInline aria-hidden="true">
+        <source src="/fdao_banner.mp4" type="video/mp4" />
+        {/* fallback: browsers that don't support mp4 will ignore this */}
+      </video>
       <div className="Banner-inner">
            <div className="Banner-brand">
              {/* Inline slim logo placed left of the team label (served from /public). */}
