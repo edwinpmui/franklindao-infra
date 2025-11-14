@@ -1,6 +1,6 @@
 import React from 'react';
 import Banner from '../components/Banner';
-import About from '../components/About';
+import About, { AboutOrg, MeetTheTeam } from '../components/About';
 import '../css/Home.css';
 import Metrics from '../components/Metrics';
 import Footer from '../components/Footer';
@@ -13,8 +13,15 @@ function Home() {
           <Banner />
         </section>
 
-        <section className="PageSection">
-          <About />
+        {/* horizontal divider between banner and about */}
+        <div className="SectionDivider" aria-hidden="true" />
+
+        <section className="PageSection PageSection--dark">
+          <AboutOrg />
+        </section>
+
+        <section className="PageSection PageSection--split">
+          <MeetTheTeam />
         </section>
 
         <section className="PageSection">

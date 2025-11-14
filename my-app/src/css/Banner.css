@@ -3,11 +3,14 @@
   width: 100%;
   /* make the banner a normal top section instead of full viewport */
   height: auto;
-  min-height: 320px;
+  /* Make the banner much shorter: clamp the height so it scales with viewport
+    but stays small (roughly ~25% of the viewport height). This keeps the
+    video visually compact while object-fit:cover crops as needed. */
+  height: clamp(96px, 24vh, 220px);
   /* hide overflow so background video can be zoomed without showing edges */
   overflow: hidden;
-  /* dark fallback while video loads or in case of letterboxing */
-  background: #000;
+  /* let the video and poster control the visible area; keep background transparent */
+  background: transparent;
 }
 
 /* Make the PageSection that contains the hero banner full-bleed so the video
@@ -26,15 +29,16 @@
 
 /* Background video that covers the banner area */
 .Banner-bg-video {
+  /* Fill the banner container at all viewport sizes. Using inset + width/height
+     ensures the video always covers the full width/height and `object-fit: cover`
+     crops as needed while preserving aspect ratio. This is more predictable than
+     manually scaling via transforms. */
   position: absolute;
-  top: 50%;
-  left: 50%;
-  /* oversize the video so it always covers the container */
-  height: 335%;
-  width: auto;
-  transform: translate(-50%, -50%) scale(1.06);
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: center 30%; /* bias visible area downward */
+  object-position: center 50%; /* bias visible area downward */
   z-index: 0; /* behind banner content */
   pointer-events: none;
   display: block;
@@ -65,35 +69,64 @@
   left: -20px;
   right: -20px;
   border-radius: 999px;
-  /* frostier glass: slightly stronger veil, heavier blur, subtle contrast boost and deeper diffuse shadow */
-  background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.08));
-  border: 1px solid rgba(255,255,255,0.14);
-  box-shadow: 0 14px 40px rgba(2,6,23,0.08), inset 0 1px 0 rgba(255,255,255,0.03);
-  /* heavier blur + saturation/contrast to enhance the frosted effect */
-  backdrop-filter: blur(20px) saturate(150%) contrast(105%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%) contrast(105%);
+  /* whiter, frosty glass: brighter veil, stronger inset highlight, lower color saturation */
+  background: linear-gradient(180deg, rgba(255,255,255,0.30), rgba(255,255,255,0.16));
+  border: 1px solid rgba(255,255,255,0.22);
+  box-shadow: 0 16px 44px rgba(2,6,23,0.06), inset 0 2px 6px rgba(255,255,255,0.6);
+  /* heavy blur but reduce saturation so it reads as white/frost rather than colored glass */
+  backdrop-filter: blur(18px) saturate(85%) contrast(112%);
+  -webkit-backdrop-filter: blur(18px) saturate(85%) contrast(112%);
   z-index: 4; /* sit behind the title content (title has z-index:5) */
   pointer-events: none;
-  transition: opacity 260ms cubic-bezier(.2,.9,.2,1), transform 260ms cubic-bezier(.2,.9,.2,1);
+  /* opacity fades first, then the pill refits (scaleX) slightly later for a staged effect */
+  transition: opacity 260ms cubic-bezier(.2,.9,.2,1), transform 300ms cubic-bezier(.2,.9,.2,1) 220ms;
+  will-change: opacity, transform, backdrop-filter;
 }
 
-/* Ensure the inline images and subtext render above the glass pill */
-.Banner-title > img,
+/* Ensure the inline images, title text and subtext render above the glass pill */
+.Banner-title > *,
 .Banner-title .Brand-sub {
   position: relative;
   z-index: 6;
 }
 
+/* Subtle centered horizontal frosted highlight across the pill to improve readability */
+.Banner-title::after {
+  content: "";
+  position: absolute;
+  /* inset horizontally with a little breathing room so the highlight doesn't touch the pill edges */
+  left: 0.06%;
+  right: 0.06%;
+  /* center vertically in the pill */
+  top: 50%;
+  transform: translateY(-50%);
+  /* make it a short horizontal band */
+  height: 90%;
+  border-radius: 999px;
+  /* strong white center that fades to transparent for a frosted streak */
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.18));
+  /* soften with a small blur so it reads as a glow rather than a hard bar */
+  filter: blur(6px);
+  -webkit-filter: blur(6px);
+  opacity: 0.6;
+  pointer-events: none;
+  /* place above the base pill (::before is z-index:4) but below the title content (children are z-index:6) */
+  z-index: 5;
+  transition: opacity 220ms cubic-bezier(.2,.9,.2,1), transform 300ms cubic-bezier(.2,.9,.2,1) 220ms;
+}
+
 /* Hide the glass pill when the banner is scrolled */
 .Banner.banner-scrolled .Banner-title::before {
   opacity: 0;
-  transform: translateY(-6px) scale(.995);
+  /* lift slightly, shift toward the left and shrink horizontally to 'refit' */
+  transform: translateY(-8px) translateX(-6px) scaleX(.72) scale(.98);
 }
 
 .Banner-inner {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 48px 24px;
+  /* reduce vertical padding so content fits the shorter banner */
+  padding: 20px 24px;
   display: flex;
   align-items: center;
   justify-content: flex-start; /* align brand to the left */
@@ -158,9 +191,16 @@
 /* When the banner receives .banner-scrolled, hide the logos smoothly */
 .Banner.banner-scrolled .Banner-logo--inline,
 .Banner.banner-scrolled .Banner-logo--blocks {
+  /* fade and lift the block/logo out first */
   opacity: 0;
-  transform: translateY(-6px) scale(.98);
+  transform: translateY(-8px) scale(.96);
   pointer-events: none;
+}
+
+/* Hide the highlight along with the pill when scrolled */
+.Banner.banner-scrolled .Banner-title::after {
+  opacity: 0;
+  transform: translateY(-60%) translateX(-6px) scaleX(.72) scale(.98);
 }
 
 .Brand-main {
@@ -180,14 +220,15 @@
   font-size: 1.2rem;
   color: #111; /* slightly muted black for subtext */
   display: inline-block; /* allow transforms */
-  transition: transform 260ms cubic-bezier(.2,.9,.2,1), opacity 260ms;
+  /* animate slide then fade when banner is scrolled; small delays stage the sequence */
+  transition: transform 260ms cubic-bezier(.2,.9,.2,1) 120ms, opacity 260ms cubic-bezier(.2,.9,.2,1) 140ms;
   will-change: transform, opacity;
 }
 
 /* When scrolled, nudge the team label left so it moves into the space left by the slim logo */
 .Banner.banner-scrolled .Brand-sub {
+  /* move left slightly and fade out so the label disappears with the other elements */
   transform: translateX(var(--brand-nudge));
-  /* also fade it out and make it non-interactive so it effectively disappears */
   opacity: 0;
   pointer-events: none;
 }

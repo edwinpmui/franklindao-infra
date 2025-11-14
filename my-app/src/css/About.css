@@ -1,49 +1,109 @@
 .About {
-    padding: 20px;
-    background-color: white;
     min-height: 100vh;
-    /* Full viewport height */
+    display: block;
 }
 
-.About-header {
+/* Organization / top section - black background with white text */
+.About-org {
+    background: #000;
+    color: #fff;
+    padding: 64px 20px;
+}
+.About-org-inner {
+    max-width: 1100px;
+    margin: 0 auto;
     text-align: center;
-    margin-top: 50px;
+}
+.About-org h1 {
+    margin: 0 0 12px 0;
+    font-size: 2.25rem;
+}
+.About-org p {
+    margin: 0 auto;
+    max-width: 900px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.92);
 }
 
-.Team {
-    text-align: center;
-    margin-top: 50px;
+/* Team section - split into left (photos) and right (white intro pane) */
+.Team-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
 }
-
+.Team-left {
+    flex: 1 1 420px;
+    background: #000; /* match AboutOrg: full black */
+    color: #fff;
+    padding: 48px 28px;
+}
+.Team-left h2 {
+    margin-top: 0;
+}
 .Team-members {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 16px;
 }
-
 .Team-member {
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    padding: 20px;
-    width: 200px;
-    text-align: center;
+    display: flex;
+    gap: 16px;
+    align-items: center;
 }
-
 .Team-photo {
-    width: 100px;
-    height: 100px;
+    width: 88px;
+    height: 88px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 10px;
+    border: 2px solid rgba(255,255,255,0.12);
 }
-
+.Team-member-meta {
+    display: flex;
+    flex-direction: column;
+}
+.Team-member-name {
+    margin: 0;
+    font-size: 1.05rem;
+}
 .Team-position {
-    font-weight: bold;
-    margin: 5px 0;
+    margin: 2px 0 0 0;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
 }
 
-.Team-description {
-    font-size: 0.9rem;
-    color: #555;
+.Team-right {
+    flex: 1 1 420px;
+    background: #fff;
+    color: #000;
+    padding: 48px 32px;
+}
+.Team-right-inner {
+    max-width: 760px;
+    margin: 0 auto;
+}
+.Team-right h3 {
+    margin-top: 0;
+}
+.Team-right p {
+    line-height: 1.6;
+    color: #111;
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 900px) {
+    .Team-section {
+        flex-direction: column;
+    }
+    .Team-left, .Team-right {
+        flex: 1 1 100%;
+        padding: 28px 20px;
+    }
+    .Team-members {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .Team-member {
+        width: calc(50% - 12px);
+    }
 }

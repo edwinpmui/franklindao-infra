@@ -52,6 +52,20 @@ code {
   margin: 0 24px 20px 0px; /* top/right/bottom/left */
 }
 
+/* Modifier for PageSections that should use a dark background and light text */
+.PageSection--dark {
+  background: #000;
+  color: #fff;
+}
+
+/* PageSection variant used for two-column split layouts where inner panes
+   should control their own padding/backgrounds (removes the default padding)
+   Example: MeetTheTeam uses this so the left column can render solid black
+   without a white padding border. */
+.PageSection--split {
+  padding: 0;
+}
+
 /* Make the final footer/contact PageSection have a black background and white text */
 footer.PageSection {
   background: #000;
