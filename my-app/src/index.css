@@ -4,6 +4,7 @@
   --union-mid:  #0b5fa8;    /* ocean/brand blue */
   --union-accent:#00b4d8;   /* bright cyan accent */
   --union-pale: #e8fbff;    /* very pale blue / background */
+  --page-bg: #f5f5f5;      /* page background / grey banner color */
 
   --text-dark: #0b1b33;
   --text-on-dark: #ffffff;
@@ -22,11 +23,41 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--union-pale);
+  /* Use the same grey as the sidebar/banner background for the overall page */
+  background-color: var(--page-bg);
   color: var(--text-dark);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Layout: central content area and white card sections to reveal background around them */
+.SiteContent {
+  /* allow sections to expand to the full viewport width (we'll offset each section)
+     so the left edge can sit flush to the sidebar while keeping right breathing room */
+  width: 100%;
+  max-width: none;
+  margin: 24px 0; /* reduced vertical breathing room so grey borders are thinner */
+  padding: 0;
+}
+
+.PageSection {
+  background: #fff;
+  border-radius: 0; /* sharp corners */
+  padding: clamp(16px, 2.5vw, 36px); /* slightly reduced inner padding */
+  box-shadow: none; /* remove soft shadow */
+  /* push the left edge flush to the nav (collapsed width) and keep a smaller right gutter so grey is subtler */
+  margin: 0 24px 20px 0px; /* top/right/bottom/left */
+}
+
+/* Make the final footer/contact PageSection have a black background and white text */
+footer.PageSection {
+  background: #000;
+  color: #fff;
+}
+
+.PageSection:last-child {
+  margin-bottom: 36px; /* extra bottom breathing room */
 }

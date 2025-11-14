@@ -1,5 +1,7 @@
 .Footer {
-    background-color: #333;
+    /* keep footer content styling, but make the section container control the background
+       so we can make the entire PageSection black for the contact area */
+    background-color: transparent;
     color: white;
     text-align: center;
     padding: 10px 0;

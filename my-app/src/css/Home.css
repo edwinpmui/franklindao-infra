@@ -4,7 +4,7 @@
   min-height: 100vh;
   overflow-y: auto;
   /* leave room for left sidebar (narrow vertical sidebar) */
-  margin-left: 96px;
+  margin-left: 72px;
   -ms-overflow-style: none;
   /* IE and Edge */
   scrollbar-width: none;

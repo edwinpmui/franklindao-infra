@@ -8,10 +8,23 @@ import Footer from '../components/Footer';
 function Home() {
   return (
     <div className="Home">
-      <Banner />
-      <About />
-      <Metrics />
-      <Footer />
+      <div className="SiteContent">
+        <section className="PageSection">
+          <Banner />
+        </section>
+
+        <section className="PageSection">
+          <About />
+        </section>
+
+        <section className="PageSection">
+          <Metrics />
+        </section>
+
+        <footer className="PageSection">
+          <Footer />
+        </footer>
+      </div>
     </div>
   );
 }

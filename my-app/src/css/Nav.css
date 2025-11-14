@@ -3,7 +3,7 @@
   left: 0;
   top: 0;
   height: 100vh;
-  width: 96px;
+  width: 72px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -45,7 +45,7 @@
   justify-content: space-between;
   align-items: flex-start;
   padding: 20px 18px;
-  transform: translateX(calc(-100% + 96px)); /* keep left 96px visible when closed */
+  transform: translateX(calc(-100% + 72px)); /* keep left 72px visible when closed */
   transition: transform 720ms cubic-bezier(.2,.8,.2,1), background-color 420ms ease, color 320ms ease;
   will-change: transform;
   pointer-events: none; /* disabled while closed so it doesn't steal clicks */
@@ -66,10 +66,10 @@
   color: inherit; /* will be white when panel darkens */
 }
 
-/* Ensure Nav-top and Nav-bottom remain visible and centered in the collapsed 96px bar */
+/* Ensure Nav-top and Nav-bottom remain visible and centered in the collapsed bar */
 .Nav-top,
 .Nav-bottom {
-  width: 96px;
+  width: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,8 +78,8 @@
 }
 
 .Nav-text {
-  /* keep the vertical styling but ensure it fits into the 96px width */
-  max-width: 64px;
+  /* keep the vertical styling but ensure it fits into the collapsed width */
+  max-width: 48px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
