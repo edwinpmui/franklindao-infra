@@ -12,7 +12,7 @@ const teamMembers = [
     name: 'Christopher Yuen',
     position: 'Team Member',
     description: 'small description',
-    photo: 'test2.jpg'
+    photo: 'chris_yuen_headshot_zoom.jpg'
   },
   {
     name: 'Shoi Amin',
