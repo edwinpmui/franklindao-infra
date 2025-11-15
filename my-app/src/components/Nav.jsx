@@ -55,7 +55,7 @@ function Nav({ className }) {
 
   // Watch page sections and update the collapsed-nav label with the current section.
   useEffect(() => {
-    const ids = ['home', 'about', 'work'];
+  const ids = ['home', 'about', 'partners', 'work'];
     const elements = ids.map((id) => document.getElementById(id)).filter(Boolean);
     if (!elements.length) return undefined;
 
@@ -115,7 +115,7 @@ function Nav({ className }) {
             <span className="Nav-item-desc">Who we are & mission</span>
           </a>
 
-          <a href="#work" className="Nav-item" onClick={(e) => scrollToSection(e, 'work')}>
+          <a href="#partners" className="Nav-item" onClick={(e) => scrollToSection(e, 'partners')}>
             <span className="Nav-item-label">Work</span>
             <span className="Nav-item-arrow" aria-hidden>→</span>
             <span className="Nav-item-desc">Case studies & projects</span>

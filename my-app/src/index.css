@@ -58,6 +58,15 @@ code {
   color: #fff;
 }
 
+/* Partners section variant: dark bluish-grey background that spans the whole PageSection */
+.PageSection--partners {
+  background: #2b2f33;
+  color: #fff;
+  /* match the vertical spacing used previously in .Partners and keep the site's
+     horizontal padding behavior for PageSections */
+  padding: 56px clamp(16px, 2.5vw, 36px);
+}
+
 /* PageSection variant used for two-column split layouts where inner panes
    should control their own padding/backgrounds (removes the default padding)
    Example: MeetTheTeam uses this so the left column can render solid black

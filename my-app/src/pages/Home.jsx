@@ -4,6 +4,8 @@ import About, { AboutOrg, MeetTheTeam } from '../components/About';
 import '../css/Home.css';
 import Metrics from '../components/Metrics';
 import Footer from '../components/Footer';
+import Work from '../components/Work';
+import Partners from '../components/Partners';
 
 function Home() {
   return (
@@ -24,8 +26,16 @@ function Home() {
           <MeetTheTeam />
         </section>
 
+        <section className="PageSection PageSection--partners">
+          <Partners />
+        </section>
+
         <section className="PageSection">
           <Metrics />
+        </section>
+
+        <section className="PageSection">
+          <Work />
         </section>
 
         <footer className="PageSection">
