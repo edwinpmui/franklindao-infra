@@ -3,10 +3,96 @@
        so we can make the entire PageSection black for the contact area */
     background-color: transparent;
     color: white;
-    text-align: center;
-    padding: 10px 0;
+     text-align: center;
+     /* keep a small bottom padding so absolutely-positioned copyright
+         can sit near the section edge without overlapping content */
+     padding: 10px 0 4px 0;
     width: 100%;
     z-index: 1;
+    position: relative; /* anchor for absolutely-positioned copyright at section edge */
+}
+
+.Footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 24px;
+}
+
+.Footer-heading {
+    color: #ffffff;
+    text-align: center;
+    margin: 0 0 32px 0;
+    font-size: 2.5rem; /* increased for prominence */
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.Footer-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.Footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    transition: color 180ms ease, opacity 180ms ease, transform 200ms ease, padding 200ms ease;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.Footer-link-logo {
+    display: none; /* hide external image icons to mimic union.co's text-only footer */
+}
+
+.Footer-link-label {
+    display: inline-block; /* visible label like union.co */
+    transform: scale(1);
+    transition: transform 200ms ease, letter-spacing 200ms ease, font-weight 200ms ease;
+}
+
+.Footer-link:hover,
+.Footer-link:focus {
+    color: rgba(255,255,255,0.95);
+    opacity: 1;
+}
+
+.Footer-link:hover {
+    transform: translateY(-3px);
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+.Footer-link:hover .Footer-link-label {
+    transform: scale(1.18);
+    letter-spacing: 0.09em;
+    font-weight: 700;
+}
+
+.Footer-copyright { margin: 0; font-size: 0.9rem; color: rgba(255,255,255,0.85);
+    /* place copyright at the very bottom-right edge of the footer section on wide screens */
+    position: absolute;
+    right: -10px; /* small inset from the very edge */
+    bottom: -20px; /* moved lower (closer to the edge) */
+    text-align: right;
+}
+
+@media (max-width: 640px) {
+    /* Stack/center on small screens so it doesn't overlap other content */
+    .Footer-copyright {
+        position: static;
+        margin-top: 12px;
+        text-align: center;
+    }
 }
 
 .Footer-absolute {
