@@ -55,14 +55,16 @@
   justify-content: center;
   box-shadow: none;
   width: 100%;
-  max-width: 320px;
+  /* increased max-width to accommodate larger partner logos */
+  max-width: 480px;
   box-sizing: border-box;
 }
 .Partner-logo-wrap {
   /* configurable logo display size — tweak the vars below to change scale */
   /* set to ~4x the original small logo container (originally 84x48) */
-  --partner-logo-w: 336px;
-  --partner-logo-h: 192px;
+  /* increased default (desktop) partner logo size */
+  --partner-logo-w: 420px;
+  --partner-logo-h: 240px;
   width: var(--partner-logo-w);
   height: var(--partner-logo-h);
   display: flex;
@@ -79,17 +81,73 @@
 }
 .Partner-name { display: none; }
 
+/* Protocol logos row shown beneath partner grid */
+.Partner-protocols {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.Partner-protocol-logo {
+  /* square tile look */
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+  background: transparent; /* show image transparency */
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms ease;
+  will-change: transform, box-shadow;
+  cursor: pointer;
+}
+
+/* Hover / focus interaction for protocol tiles */
+.Partner-protocol-logo:hover,
+.Partner-protocol-logo:focus,
+.Partner-protocol-logo:focus-visible {
+  transform: translateY(-6px) scale(1.06);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.22);
+  outline: none;
+}
+
+/* Respect user's reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .Partner-protocol-logo {
+    transition: none;
+    transform: none;
+  }
+  .Partner-protocol-logo:hover,
+  .Partner-protocol-logo:focus,
+  .Partner-protocol-logo:focus-visible {
+    transform: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  }
+}
+
+/* Small heading displayed above protocols */
+.Partner-protocols-heading {
+  margin: 28px 0 8px;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #f8fafc;
+  opacity: 0.95;
+  font-weight: 600;
+}
+
 @media (max-width: 900px) {
   .Partners-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-  .Partner-card { max-width: 360px; padding: 14px; }
-  /* tablet: approx 4x the previous tablet size (72x40 -> 288x160) */
-  .Partner-logo-wrap { --partner-logo-w: 288px; --partner-logo-h: 160px; }
+  /* bump tablet sizes to match increased desktop scale */
+  .Partner-card { max-width: 420px; padding: 14px; }
+  .Partner-logo-wrap { --partner-logo-w: 360px; --partner-logo-h: 200px; }
   .Partner-name { font-size: 0.85rem; }
 }
 @media (max-width: 480px) {
   .Partners-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
-  .Partner-card { max-width: 240px; padding: 10px; }
-  /* mobile: approx 4x the previous mobile size (64x36 -> 256x144) */
-  .Partner-logo-wrap { --partner-logo-w: 256px; --partner-logo-h: 144px; }
+  /* allow larger logos on mobile while keeping layout intact */
+  .Partner-card { max-width: 360px; padding: 10px; }
+  .Partner-logo-wrap { --partner-logo-w: 320px; --partner-logo-h: 180px; }
   .Partner-name { font-size: 0.8rem; }
+  .Partner-protocol-logo { width: 120px; height: 120px; }
 }

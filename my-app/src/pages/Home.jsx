@@ -26,16 +26,16 @@ function Home() {
           <MeetTheTeam />
         </section>
 
-        <section className="PageSection PageSection--partners">
-          <Partners />
+        <section id="work" className="PageSection">
+          <Work />
         </section>
 
-        <section className="PageSection">
+        <section id="metrics" className="PageSection">
           <Metrics />
         </section>
 
-        <section className="PageSection">
-          <Work />
+        <section className="PageSection PageSection--partners">
+          <Partners />
         </section>
 
         <footer className="PageSection">

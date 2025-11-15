@@ -1,5 +1,8 @@
 import React from 'react';
 import '../css/Partners.css';
+// Logos served from the public/ folder (no import required)
+const HuddleLogo = '/Huddle01-team-logo.png';
+const CantonLogo = '/Canton-Network-logo.jpg';
 
 export default function Partners() {
   // placeholder partner data; replace src with real logos in /public or /images
@@ -24,6 +27,12 @@ export default function Partners() {
               <div className="Partner-name">{p.name}</div>
             </div>
           ))}
+        </div>
+
+        {/* Protocol logos (rendered below the partner photos) */}
+        <div className="Partner-protocols" aria-hidden="false">
+          <img src={HuddleLogo} alt="Huddle01 team" className="Partner-protocol-logo" />
+          <img src={CantonLogo} alt="Canton Network" className="Partner-protocol-logo" />
         </div>
       </div>
     </div>

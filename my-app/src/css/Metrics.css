@@ -1,33 +1,65 @@
 .Metrics {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start; /* make the title sit at the top-left */
     gap: 20px;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.2);
-    /* Slightly more transparent background */
+    /* reduce top padding and pull the block upward so the title/underline sits closer to the section top */
+    padding: 12px 20px 20px;
+    margin-top: -90px;
+    background-color: transparent;
+    /* transparent section background so underlying section color shows through */
     border-radius: 10px;
     flex-wrap: wrap;
     /* Ensure wrapping on smaller screens */
 }
 
+.Metrics-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+
+@media (max-width: 900px) {
+    .Metrics { margin-top: -8px; padding: 8px 16px 16px; }
+}
+
 .Metrics-title {
     font-size: 4rem;
-    color: #fff;
+    color: #000;
     z-index: 1;
-    /* White text color */
-    margin-bottom: 20px;
-    width: 100%;
-    /* Ensure title takes full width */
+    margin-bottom: 28px;
+    /* size to content so the underline only spans the text */
+    display: inline-block;
+    width: auto;
     text-align: center;
+    padding: 0px 0 20px; /* add bottom padding for a taller header area */
+    position: relative; /* for the underline pseudo-element */
+    opacity: 0;
+    transform: translateX(-28px);
+    animation: slideInLeft 700ms cubic-bezier(.2,.9,.2,1) 500ms forwards;
+}
+
+/* Underline as a pseudo-element so we can animate the bar independently */
+.Metrics-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 6px; /* line up with the title's bottom padding */
+    height: 2px;
+    width: 100%;
+    background: rgba(0,0,0,0.12);
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: underlineGrow 700ms cubic-bezier(.2,.9,.2,1) 600ms forwards;
 }
 
 .Metric {
     text-align: center;
-    color: #fff;
-    /* White text color */
-    background-color: rgba(107, 107, 107, 0.5);
-    /* Translucent background */
+    /* Make the metric card background transparent so it blends with section */
+    background-color: transparent;
+    /* Use black text for legibility on light backgrounds */
+    color: #000;
     padding: 20px;
     border-radius: 10px;
     min-width: 150px;
@@ -35,19 +67,20 @@
 }
 
 .Metric h2 {
-    font-size: 2.5rem;
+    /* Larger, responsive numbers for better emphasis */
+    font-size: clamp(2.6rem, 6.5vw, 4rem);
     margin: 0;
+    font-weight: 700;
+    line-height: 1;
     animation: countUp 2s ease-out forwards;
-    /* Add forwards to keep the final state */
-    color: #fff;
-    /* Ensure h2 text is white */
+    /* Keep final state */
+    color: #000; /* black values */
 }
 
 .Metric p {
     font-size: 1.2rem;
     margin: 5px 0 0;
-    color: #fff;
-    /* Ensure p text is white */
+    color: #000; /* black labels */
 }
 
 @keyframes countUp {
@@ -59,5 +92,33 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Slide the header left -> right and fade in */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Grow the underline from left to right */
+@keyframes underlineGrow {
+    from { transform: scaleX(0); opacity: 0; }
+    to   { transform: scaleX(1); opacity: 1; }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .Metrics-title,
+    .Metrics-title::after,
+    .Metric h2 {
+        animation: none !important;
+        transition: none !important;
     }
 }

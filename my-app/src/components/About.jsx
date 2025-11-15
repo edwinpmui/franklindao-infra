@@ -24,7 +24,7 @@ const teamMembers = [
     name: 'Nevan Sujit',
     position: 'Team Member',
     description: 'small description',
-    photo: 'member4.jpg'
+    photo: 'nevan_headshot.jpg'
   },
   {
     name: 'Brandon Kong',
@@ -92,15 +92,15 @@ export function MeetTheTeam() {
         <div className="Team-right-inner">
           <h2 className="Team-heading">Meet the Team</h2>
           <p>
-            The Infrastructure team @FranklinDAO focuses on reliability, security, and
+            The Infrastructure Team @FranklinDAO focuses on reliability, security, and
             automation. We operate and improve the platforms, CI/CD pipelines,
             and observability tooling that keep production running smoothly.
             We're a small, cross-functional group that collaborates closely
-            with product and engineering teams to ship safely and quickly.
+            with product and engineering teams to ship safely and quickly. (need to edit)
           </p>
           <p>
             If you'd like to learn more about our processes or open roles,
-            reach out via the contact channels on this site.
+            reach out via the <a href="#contact" onClick={(e) => { e.preventDefault(); const el = document.getElementById('contact'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}>contact channels</a> on this site.
           </p>
         </div>
       </div>

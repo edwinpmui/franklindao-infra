@@ -1,7 +1,9 @@
 .Work {
-  background: #fff;
+  /* section background to make 'What we offer?' stand out */
+  background: #c6d2e9ff; /* light grey */
   color: #111;
   padding: 56px 20px;
+  border-radius: 12px; /* rounded inner card to match section */
 }
 .Work-inner {
   max-width: 1100px;
@@ -22,10 +24,23 @@
   gap: 20px;
 }
 .Work-card {
-  background: #f9f9fb;
+  background: #e1e1f1ff;
   padding: 18px;
   border-radius: 8px;
   box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.Work-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  color: #2563eb; /* blue accent for icons */
+}
+.Work-icon svg {
+  width: 48px;
+  height: 48px;
+  display: block;
 }
 
 @media (max-width: 900px) {

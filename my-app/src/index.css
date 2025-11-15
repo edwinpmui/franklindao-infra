@@ -52,6 +52,14 @@ code {
   margin: 0 24px 20px 0px; /* top/right/bottom/left */
 }
 
+/* Make Work and Metrics sections match the page background so they visually blend with the site */
+#work.PageSection,
+#metrics.PageSection {
+  background: var(--page-bg);
+  border-radius: 12px; /* rounded edges for these page sections */
+  overflow: hidden; /* ensure children don't bleed outside rounded corners */
+}
+
 /* Modifier for PageSections that should use a dark background and light text */
 .PageSection--dark {
   background: #000;

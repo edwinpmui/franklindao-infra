@@ -115,7 +115,7 @@ function Nav({ className }) {
             <span className="Nav-item-desc">Who we are & mission</span>
           </a>
 
-          <a href="#partners" className="Nav-item" onClick={(e) => scrollToSection(e, 'partners')}>
+          <a href="#work" className="Nav-item" onClick={(e) => scrollToSection(e, 'work')}>
             <span className="Nav-item-label">Work</span>
             <span className="Nav-item-arrow" aria-hidden>→</span>
             <span className="Nav-item-desc">Case studies & projects</span>
