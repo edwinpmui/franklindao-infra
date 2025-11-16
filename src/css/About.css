@@ -174,7 +174,7 @@
     gap: 12px;
     max-width: 320px;
     /* lift the director slightly so they visually sit above flank members */
-    transform: translateY(-40px);
+    transform: translateY(100px);
 }
 .Team-photo--director {
     width: 240px;

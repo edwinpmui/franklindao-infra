@@ -32,12 +32,7 @@ const teamMembers = [
     description: 'small description',
     photo: 'brandon.jpg'
   },
-  {
-    name: 'Eric Feng',
-    position: 'Team Member',
-    description: 'small description',
-    photo: 'blank.jpg'
-  }
+  
 ];
 
 export function AboutOrg() {
@@ -113,8 +108,27 @@ export function MeetTheTeam() {
         const topLeft = others[0] || null;
         const topRight = others[1] || null;
 
-        // bottom row: remaining members
+        // bottom row: remaining members (we may have 0-3 items)
         const bottom = others.slice(2);
+        let bottomLeft = null;
+        let bottomCenter = null;
+        let bottomRight = null;
+
+        if (bottom.length === 3) {
+          bottomLeft = bottom[0];
+          bottomCenter = bottom[1];
+          bottomRight = bottom[2];
+        } else if (bottom.length === 2) {
+          // Place the two items at left and right (leave center empty)
+          bottomLeft = bottom[0];
+          bottomCenter = null;
+          bottomRight = bottom[1];
+        } else if (bottom.length === 1) {
+          // Single bottom member goes to center
+          bottomLeft = null;
+          bottomCenter = bottom[0];
+          bottomRight = null;
+        }
 
         return (
           <div className={"Team-members-grid" + (appear ? ' appear' : '')}>
@@ -158,36 +172,36 @@ export function MeetTheTeam() {
 
             {/* bottom row: spread remaining members across three columns */}
             <div className="member-slot slot-bottom-left">
-              {bottom[0] && (
+              {bottomLeft && (
                 <div className="Team-member">
-                  <img src={bottom[0].photo} alt={bottom[0].name} className="Team-photo" />
+                  <img src={bottomLeft.photo} alt={bottomLeft.name} className="Team-photo" />
                   <div className="Team-member-meta">
-                    <h3 className="Team-member-name">{bottom[0].name}</h3>
-                    <p className="Team-position">{bottom[0].position}</p>
+                    <h3 className="Team-member-name">{bottomLeft.name}</h3>
+                    <p className="Team-position">{bottomLeft.position}</p>
                   </div>
                 </div>
               )}
             </div>
 
             <div className="member-slot slot-bottom-center">
-              {bottom[1] && (
+              {bottomCenter && (
                 <div className="Team-member">
-                  <img src={bottom[1].photo} alt={bottom[1].name} className="Team-photo" />
+                  <img src={bottomCenter.photo} alt={bottomCenter.name} className="Team-photo" />
                   <div className="Team-member-meta">
-                    <h3 className="Team-member-name">{bottom[1].name}</h3>
-                    <p className="Team-position">{bottom[1].position}</p>
+                    <h3 className="Team-member-name">{bottomCenter.name}</h3>
+                    <p className="Team-position">{bottomCenter.position}</p>
                   </div>
                 </div>
               )}
             </div>
 
             <div className="member-slot slot-bottom-right">
-              {bottom[2] && (
+              {bottomRight && (
                 <div className="Team-member">
-                  <img src={bottom[2].photo} alt={bottom[2].name} className="Team-photo" />
+                  <img src={bottomRight.photo} alt={bottomRight.name} className="Team-photo" />
                   <div className="Team-member-meta">
-                    <h3 className="Team-member-name">{bottom[2].name}</h3>
-                    <p className="Team-position">{bottom[2].position}</p>
+                    <h3 className="Team-member-name">{bottomRight.name}</h3>
+                    <p className="Team-position">{bottomRight.position}</p>
                   </div>
                 </div>
               )}
