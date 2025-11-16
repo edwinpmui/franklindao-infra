@@ -18,7 +18,7 @@ const teamMembers = [
     name: 'Shoi Amin',
     position: 'Team Member',
     description: 'small description',
-    photo: 'blank.jpg'
+    photo: 'shoi.jpg'
   },
   {
     name: 'Nevan Sujit',
@@ -30,7 +30,7 @@ const teamMembers = [
     name: 'Brandon Kong',
     position: 'Team Member',
     description: 'small description',
-    photo: 'blank.jpg'
+    photo: 'brandon.jpg'
   },
   {
     name: 'Eric Feng',
