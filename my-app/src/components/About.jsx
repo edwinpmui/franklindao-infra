@@ -6,7 +6,7 @@ const teamMembers = [
     name: 'Edwin Mui',
     position: 'Director of Infrastructure',
     description: '',
-    photo: 'test1.jpg'
+    photo: 'edwin_mui.jpg'
   },
   {
     name: 'Christopher Yuen',
