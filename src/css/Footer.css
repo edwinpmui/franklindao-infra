@@ -99,3 +99,116 @@
     position: absolute;
     bottom: 0;
 }
+
+/* Contact button (styled to look like the heading) */
+.Footer-contact-button {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    padding: 0;
+}
+.Footer-contact-button:focus {
+    outline: 3px solid rgba(255,255,255,0.12);
+    outline-offset: 6px;
+}
+
+/* Hover/interaction: subtle lift, scale and highlight */
+.Footer-contact-button {
+    transition: transform 220ms cubic-bezier(.2,.9,.2,1), color 180ms ease, text-shadow 180ms ease;
+    transform-origin: center center;
+}
+.Footer-contact-button:hover,
+.Footer-contact-button:focus,
+.Footer-contact-button:focus-visible {
+    transform: translateY(-6px) scale(1.06);
+    color: #ffffff;
+    text-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .Footer-contact-button {
+        transition: none;
+        transform: none !important;
+    }
+}
+
+/* Modal overlay and panel */
+.ContactModal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1200;
+    padding: 24px;
+}
+.ContactModal {
+    background: #0b1220;
+    color: #fff;
+    width: 100%;
+    max-width: 720px;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(2,6,23,0.6);
+    padding: 28px;
+    position: relative;
+}
+.ContactModal-close {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.85);
+    font-size: 20px;
+    cursor: pointer;
+}
+.ContactModal-title { margin: 0 0 12px 0; font-size: 1.25rem; }
+
+/* Form styles */
+.ContactForm { display: grid; gap: 12px; }
+.ContactLabel { display: block; font-size: 0.9rem; color: rgba(255,255,255,0.9); }
+.ContactInput, .ContactTextarea {
+    width: 100%;
+    margin-top: 6px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.02);
+    color: #fff;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+}
+.ContactInput:focus, .ContactTextarea:focus {
+    outline: none;
+    border-color: rgba(255,255,255,0.24);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+.ContactTextarea { resize: vertical; }
+
+.ContactForm-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 6px; }
+.ContactBtn { padding: 10px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; border: 1px solid transparent; }
+.ContactBtn--primary { background: #1a73e8; color: #fff; border-color: rgba(255,255,255,0.06); }
+.ContactBtn--ghost { background: transparent; color: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.06); }
+
+@media (max-width: 480px) {
+    .ContactModal { padding: 18px; }
+    .ContactForm-actions { flex-direction: column-reverse; }
+    .ContactBtn { width: 100%; }
+}
+
+/* Inline contact form wrapper (when form is shown directly in page) */
+.Footer-contact-form {
+    max-width: 720px;
+    margin: 18px auto 26px auto;
+    text-align: left;
+}
+
+/* Slightly reduce spacing for very small screens */
+@media (max-width: 480px) {
+    .Footer-contact-form { margin: 12px 12px 18px 12px; }
+}
