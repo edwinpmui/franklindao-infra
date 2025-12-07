@@ -1,8 +1,46 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import '../css/Footer.css';
 
 function Footer({ className }) {
     const firstInputRef = useRef(null);
+
+    // Configuration: replace with your Google Form id and entry IDs.
+    // 1) Find your form's ID in the URL: "https://docs.google.com/forms/d/e/FORM_ID/viewform"
+    // 2) Inspect each field to find its entry.<number> name (or generate a prefill link in Google Forms
+    //    and look for entry.<number> keys). Replace the placeholders below.
+    const GOOGLE_FORM_ID = '1FAIpQLSeUkxhYE7MWUsI-aWyEUP0x3PyxY4SLjKxN89oZvC54QT3y3A';
+    const GOOGLE_FORM_ACTION = `https://docs.google.com/forms/d/e/${GOOGLE_FORM_ID}/formResponse`;
+    const GOOGLE_FORM_ENTRY = {
+        name: 'entry.1689608842',
+        organization: 'entry.1400273831',
+        email: 'entry.306680748',
+        phone: 'entry.774024808',
+        message: 'entry.331379053'
+    };
+    const [status, setStatus] = useState(null);
+
+    function submitToGoogleForm(data) {
+        // Build a hidden form and post to the Google Forms `formResponse` endpoint.
+        // This avoids CORS issues because it uses a normal form POST. The response
+        // will open in a new tab so the user can see the Google Forms confirmation.
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = GOOGLE_FORM_ACTION;
+        form.target = '_blank';
+        form.style.display = 'none';
+
+        Object.keys(GOOGLE_FORM_ENTRY).forEach((key) => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = GOOGLE_FORM_ENTRY[key];
+            input.value = data[key] || '';
+            form.appendChild(input);
+        });
+
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -14,11 +52,26 @@ function Footer({ className }) {
             phone: form.phone.value,
             message: form.message.value
         };
-        // For now, just log the data. Integrate backend as needed.
-        console.log('Contact form submitted:', data);
-        // Optionally clear the form or show confirmation here
-        form.reset();
-        if (firstInputRef.current) firstInputRef.current.focus();
+
+        // If GOOGLE_FORM_ID is not set, just log the data and keep the inline behavior.
+        if (!GOOGLE_FORM_ID || GOOGLE_FORM_ID === 'REPLACE_WITH_FORM_ID') {
+            console.warn('Google Form ID not configured. Replace GOOGLE_FORM_ID and GOOGLE_FORM_ENTRY values.');
+            console.log('Contact form data:', data);
+            setStatus('local');
+            form.reset();
+            if (firstInputRef.current) firstInputRef.current.focus();
+            return;
+        }
+
+        try {
+            submitToGoogleForm(data);
+            setStatus('sent');
+            form.reset();
+            if (firstInputRef.current) firstInputRef.current.focus();
+        } catch (err) {
+            console.error('Failed to submit to Google Forms', err);
+            setStatus('error');
+        }
     }
 
     return (
